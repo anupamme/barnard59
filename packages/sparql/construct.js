@@ -10,6 +10,10 @@ import Client from 'sparql-http-client'
  * @param {import('sparql-http-client').QueryOptions['operation']} options.operation
  */
 function construct({ endpoint, query, user, password, operation }) {
+  if (typeof query !== 'string' || !query.trim()) {
+    throw new Error('query must be a non-empty string')
+  }
+
   const client = new Client({
     factory: this.env,
     endpointUrl: endpoint,
